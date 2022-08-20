@@ -40,13 +40,17 @@ final class QuestionsViewController: UIViewController {
         questions[questionIndex].answers
     }
     
-    
-
+    // MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let resultVC = segue.destination as? ResultViewController else { return }
+        resultVC.answerChosen = answerChosen
+    }
+    
     // MARK: - IBActions
     @IBAction func singleAnswerButtonPressed(_ sender: UIButton) {
         guard let currentIndex = singleButtons.firstIndex(of: sender) else { return }
@@ -54,6 +58,7 @@ final class QuestionsViewController: UIViewController {
         let currenetAnswer = currentAnswers[currentIndex]
         answerChosen.append(currenetAnswer)
         
+        print(answerChosen)
         nextQuestion()
     }
     
