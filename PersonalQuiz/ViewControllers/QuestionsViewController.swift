@@ -58,7 +58,6 @@ final class QuestionsViewController: UIViewController {
         let currenetAnswer = currentAnswers[currentIndex]
         answerChosen.append(currenetAnswer)
         
-        print(answerChosen)
         nextQuestion()
     }
     

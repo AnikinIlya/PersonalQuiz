@@ -16,7 +16,7 @@ final class ResultViewController: UIViewController {
     // MARK: - Public Properties
     public var answerChosen: [Answer] = []
 
-    // MARK: Override Methos
+    // MARK: Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true)
@@ -30,41 +30,33 @@ final class ResultViewController: UIViewController {
     }
 }
 
-    // MARK: - Extensions
+// MARK: - Extensions
 extension ResultViewController {
     private func updateResult(_ answers: [Answer]) {
-        var answerCounter = [
-            "Cat": 0,
-            "Rabbit": 0,
-            "Turtle": 0,
-            "Dog": 0
+        var answerCounter: [AnimalType: Int] = [
+            .cat: 0,
+            .rabbit: 0,
+            .turtle: 0,
+            .dog: 0
         ]
         
         answers.forEach { answer in
-            switch answer.type{
-            case .cat:
-                answerCounter["Cat"]! += 1
-            case .rabbit:
-                answerCounter["Rabbit"]! += 1
-            case .turtle:
-                answerCounter["Turtle"]! += 1
-            default:
-                answerCounter["Dog"]! += 1
+            if let animalType = answerCounter[answer.type] {
+                answerCounter.updateValue(animalType + 1, forKey: answer.type)
             }
         }
         
-        if answerCounter.values.max() == answerCounter["Cat"] {
-            animalTypeLabel.text = "Вы - \(AnimalType.cat.rawValue)"
-            animalDefinitionLabel.text = AnimalType.cat.definition
-        } else if answerCounter.values.max() == answerCounter["Rabbit"] {
-            animalTypeLabel.text = "Вы - \(AnimalType.rabbit.rawValue)"
-            animalDefinitionLabel.text = AnimalType.rabbit.definition
-        } else if answerCounter.values.max() == answerCounter["Turtle"] {
-            animalTypeLabel.text = "Вы - \(AnimalType.turtle.rawValue)"
-            animalDefinitionLabel.text = AnimalType.turtle.definition
-        } else {
-            animalTypeLabel.text = "Вы - \(AnimalType.dog.rawValue)"
-            animalDefinitionLabel.text = AnimalType.dog.definition
+        let sortedFrequencyOfAnimals = answerCounter.max { $0.value < $1.value }
+        
+        guard let mostFrequentAnimal = sortedFrequencyOfAnimals?.key else {
+            return
         }
+        
+        updateUI(with: mostFrequentAnimal)
+    }
+    
+    private func updateUI(with animal: AnimalType) {
+        animalTypeLabel.text = "Вы - \(animal.rawValue)"
+        animalDefinitionLabel.text = animal.definition
     }
 }
