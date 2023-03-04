@@ -6,7 +6,7 @@
 - Отобразить результаты в соотвствии с этим животным
 - Избавиться от кнопки возврата назад на экране результатов
 
-### Суть домашнего задания:
+### Научился:
 - Связывание элементов интерфейса с кодом
 - Работа с бизнес логикой приложения
 
@@ -18,7 +18,7 @@
 - Display results according to this animal
 - Get rid of back button on results screen
 
-### Essence of homework:
+### Learned:
 - Associating interface outlets with code
 - Working with application business logic
 
